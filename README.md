@@ -18,3 +18,12 @@
 cd frontend
 npm ci
 npm run dev
+```
+
+## Проверка production-сборки
+
+```bash
+cd frontend
+npm run build
+npm run preview
+```

@@ -14,6 +14,13 @@
 cd frontend
 npm ci
 npm run dev
+```
+Для production-проверки:
+
+```bash
+npm run build
+npm run preview
+```
 
 ### Коммит / тег
 
