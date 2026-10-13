@@ -27,3 +27,12 @@ npm run preview
 Коммит: `Lab 1: create React TypeScript app`
 
 Тег: `lab-1`
+
+
+## ЛР2
+- Добавлены типы Transactions и демонстрационные данные.
+- Созданы компоненты: AppLayout, TransactionCard.
+- Созданы страницы: TransactionsPage, TransactionDetilsPage, NewTransactionPage, NotFoundPage.
+- Подключён React Router (BrowserRouter в main.tsx, Routes в App.tsx).
+- Проверки: список, карточки, прямое открытие, /unknown, /transactions/missing, пустой список, build, preview.
+- Коммит: 

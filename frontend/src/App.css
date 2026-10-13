@@ -7,3 +7,35 @@
 .app section {
   margin-top: 32px;
 }
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+nav a.active {
+  font-weight: bold;
+}
+
+.transaction-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.transaction-card {
+  border: 1px solid #ccc;
+  padding: 16px;
+  overflow-wrap: anywhere;
+}
+
+.transaction-card h2 {
+  margin-top: 0;
+}
+
+@media (min-width: 760px) {
+  .transaction-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

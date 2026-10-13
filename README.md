@@ -27,3 +27,12 @@ cd frontend
 npm run build
 npm run preview
 ```
+
+## Страницы
+- `/` -> редирект на `transactions`
+- `/transactions` - список операций
+- `/transactions/new` - создание (заглушка)
+- `/transactions/:id` - подробности операции
+- `*` - страница "не найдено"
+
+Записи сейчас демонстрацинные (массив в `src/data/transactions.tsx`)

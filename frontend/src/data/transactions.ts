@@ -1,0 +1,58 @@
+import type { Transaction } from '../types/transaction'
+
+export const transactions: Transaction[] = [
+  {
+    id: 'tx1',
+    title: 'Зарплата за сентябрь',
+    description: 'Основной доход за месяц.',
+    type: 'income',
+    amount: 15000,
+    date: '2026-09-30',
+    category: 'Зарплата',
+  },
+  {
+    id: 'tx2',
+    title: 'Аренда квартиры',
+    description: 'Оплата за октябрь.',
+    type: 'expense',
+    amount: 4500,
+    date: '2026-10-01',
+    category: 'Жильё',
+  },
+  {
+    id: 'tx3',
+    title: 'Продукты',
+    description: 'Закупка на неделю в супермаркете.',
+    type: 'expense',
+    amount: 1200,
+    date: '2026-10-05',
+    category: 'Еда',
+  },
+  {
+    id: 'tx4',
+    title: 'Фриланс-проект',
+    description: 'Оплата за разработку лендинга.',
+    type: 'income',
+    amount: 3000,
+    date: '2026-10-08',
+    category: 'Подработка',
+  },
+  {
+    id: 'tx5',
+    title: 'Транспорт',
+    description: 'Проездной на месяц.',
+    type: 'expense',
+    amount: 300,
+    date: '2026-10-10',
+    category: 'Транспорт',
+  },
+  {
+    id: 'tx6',
+    title: 'Кафе с друзьями',
+    description: 'Ужин в пятницу.',
+    type: 'expense',
+    amount: 450,
+    date: '2026-10-11',
+    category: 'Развлечения',
+  },
+]

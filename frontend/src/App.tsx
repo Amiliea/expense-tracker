@@ -1,19 +1,21 @@
+import { Navigate, Route, Routes } from 'react-router'
+import { AppLayout } from './app/AppLayout'
+import { TransactionsPage } from './pages/TransactionsPage'
+import { TransactionDetailsPage } from './pages/TransactionDetailsPage'
+import { NewTransactionPage } from './pages/NewTransactionPage'
+import { NotFoundPage } from './pages/NotFoundPage'
 import './App.css'
-
-const appTitle: string = 'Expense Tracker'
 
 export default function App() {
   return (
-    <main className="app">
-      <header>
-        <h1>{appTitle}</h1>
-        <p>Личный учёт доходов и расходов в одной валюте.</p>
-      </header>
-
-      <section aria-labelledby="transactions-title">
-        <h2 id="transactions-title">Операции</h2>
-        <p>На следующих этапах здесь появятся доходы, расходы и категории.</p>
-      </section>
-    </main>
+    <Routes>
+      <Route element={<AppLayout />}>
+        <Route index element={<Navigate to="/transactions" replace />} />
+        <Route path="transactions" element={<TransactionsPage />} />
+        <Route path="transactions/new" element={<NewTransactionPage />} />
+        <Route path="transactions/:id" element={<TransactionDetailsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   )
 }
