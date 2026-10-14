@@ -35,4 +35,4 @@ npm run preview
 - Созданы страницы: TransactionsPage, TransactionDetilsPage, NewTransactionPage, NotFoundPage.
 - Подключён React Router (BrowserRouter в main.tsx, Routes в App.tsx).
 - Проверки: список, карточки, прямое открытие, /unknown, /transactions/missing, пустой список, build, preview.
-- Коммит: 
+- Коммит: "Lab2: added pages and navigation
