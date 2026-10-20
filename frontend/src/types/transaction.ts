@@ -9,3 +9,9 @@ export type Transaction = {
   date: string        
   category: string
 }
+
+export type TransactionDraft = Omit<Transaction, 'id' | 'amount'> & {
+  amount: string
+}
+
+export type TransactionInput = Omit<Transaction, 'id'>
