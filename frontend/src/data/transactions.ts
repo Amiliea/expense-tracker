@@ -8,7 +8,7 @@ export const transactions: Transaction[] = [
     type: 'income',
     amount: 15000,
     date: '2026-09-30',
-    category: 'Зарплата',
+    category: 'salary',
   },
   {
     id: 'tx2',
@@ -17,7 +17,7 @@ export const transactions: Transaction[] = [
     type: 'expense',
     amount: 4500,
     date: '2026-10-01',
-    category: 'Жильё',
+    category: 'housing',
   },
   {
     id: 'tx3',
@@ -26,7 +26,7 @@ export const transactions: Transaction[] = [
     type: 'expense',
     amount: 1200,
     date: '2026-10-05',
-    category: 'Еда',
+    category: 'food',
   },
   {
     id: 'tx4',
@@ -35,7 +35,7 @@ export const transactions: Transaction[] = [
     type: 'income',
     amount: 3000,
     date: '2026-10-08',
-    category: 'Подработка',
+    category: 'freelance',
   },
   {
     id: 'tx5',
@@ -44,7 +44,7 @@ export const transactions: Transaction[] = [
     type: 'expense',
     amount: 300,
     date: '2026-10-10',
-    category: 'Транспорт',
+    category: 'transport',
   },
   {
     id: 'tx6',
@@ -53,6 +53,6 @@ export const transactions: Transaction[] = [
     type: 'expense',
     amount: 450,
     date: '2026-10-11',
-    category: 'Развлечения',
+    category: 'entertaiment',
   },
 ]
