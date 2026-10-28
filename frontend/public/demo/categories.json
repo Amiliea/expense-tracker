@@ -1,9 +1,0 @@
-[
-  { "id": "food", "name": "Еда" },
-  { "id": "transport", "name": "Транспорт" },
-  { "id": "housing", "name": "Жильё" },
-  { "id": "entertainment", "name": "Развлечения" },
-  { "id": "salary", "name": "Зарплата" },
-  { "id": "freelance", "name": "Подработка" },
-  { "id": "health", "name": "Здоровье" }
-]

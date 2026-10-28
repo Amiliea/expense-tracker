@@ -140,3 +140,80 @@ npm run preview
 - `npm run build` и `npm run preview` проходят, справочник доступен в preview.
 
 - Коммит: `Lab 4: load categories via HTTP`
+
+
+## ЛР 5
+
+Справочник категорий перенесён в Supabase. Форма загружает категории из
+PostgreSQL через @supabase/supabase-js. Основные операции остаются в памяти
+App (перенос — в ЛР 6 вместе с авторизацией).
+
+Схема данных:
+- public.categories — публичный справочник:
+  - id text primary key (стабильный код: food, transport, …);
+  - name text not null unique;
+  - check: id и name без пробелов по краям и непустые.
+- public.transactions — личные операции (пока пустая):
+  - id uuid primary key default gen_random_uuid();
+  - owner_id uuid not null references auth.users(id) on delete cascade;
+  - category_id text not null references categories(id)
+    on update cascade on delete restrict;
+  - title, description, type, amount numeric, date date, created_at timestamptz;
+  - check: title 3–100 символов; type in ('income','expense'); amount > 0.
+
+Доступ:
+- RLS включён на обеих таблицах.
+- revoke all для anon и authenticated на обеих таблицах.
+- grant select и policy "categories are publicly readable" (using true)
+  только на categories.
+- На transactions клиентских прав и политик нет: клиент не может ни читать,
+  ни писать.
+
+Файлы в репозитории:
+- supabase/migrations/001_initial_schema.sql — схема, ключи, ограничения,
+  RLS, права и политика.
+- supabase/seed.sql — 7 категорий (food, transport, housing, entertainment,
+  salary, freelance, health), вставка через upsert по id.
+- frontend/src/lib/supabase.ts — единый клиент из env-переменных,
+  проверка конфигурации при импорте.
+- frontend/src/services/categories.ts — getCategories заменён на запрос
+  через supabase.from('categories').select('id, name').order('name')
+  с передачей AbortSignal. Проверка parseCategories сохранена.
+- frontend/.env.example — образец без значений; .env.local в .gitignore.
+- frontend/public/demo/categories.json — удалён.
+
+Интерфейс:
+- useCategories и TransactionForm не переписаны: контракт сервиса сохранён
+  (getCategories(signal): Promise<Category[]>).
+- Добавлена кнопка «Обновить справочник» (type="button", disabled во время
+  загрузки), вызывает retry без потери черновика.
+- Состояния loading / error / empty / success по-прежнему различимы.
+
+Порядок применения (фактический):
+1. SQL Editor → выполнить 001_initial_schema.sql.
+2. SQL Editor → выполнить seed.sql (повторное применение безопасно).
+3. Создать frontend/.env.local с VITE_SUPABASE_URL и
+   VITE_SUPABASE_PUBLISHABLE_KEY.
+4. Перезапустить Vite (npm run dev).
+
+## Проверки:
+- Network показывает запрос к supabase.co/rest/v1/categories (не /demo/…);
+- /demo/categories.json отдаёт 404;
+- выбор категории при создании и редактировании;
+- UPDATE categories SET name в SQL Editor → после «Обновить справочник»
+  видно новое name при том же id; черновик формы сохранён;
+- DELETE FROM categories → пустое состояние; повторный seed + «Обновить» →
+  всё вернулось;
+- временная опечатка в имени таблицы в сервисе → ошибка, «Повторить»;
+- попытка INSERT в categories из клиента → ошибка доступа (42501 /
+  permission denied), строка не создаётся;
+- SELECT из transactions из клиента → permission denied;
+- без .env.local приложение выдаёт понятную ошибку конфигурации;
+- создание, редактирование, отмена, удаление и фильтр ЛР 3 работают;
+- npm run build и npm run preview проходят, форма в preview тоже
+  читает Supabase.
+
+Временный проверочный код (tryInsert, trySelectTransactions) удалён
+перед коммитом.
+
+- Коммит: `Lab 5: add Supabase schema and reference data`

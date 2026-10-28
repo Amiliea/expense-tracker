@@ -1,3 +1,4 @@
+import { supabase } from '../lib/supabase'
 import type { Category } from '../types/category'
 
 function isCategory(value: unknown): value is Category {
@@ -27,11 +28,20 @@ export function parseCategories(value: unknown): Category[] {
 
 const categoriesUrl = `${import.meta.env.BASE_URL}demo/categories.json`
 
-export async function getCategories(signal: AbortSignal): Promise<Category[]> {
-  const response = await fetch(categoriesUrl, { signal, cache: 'no-store' })
-  if (!response.ok) {
-    throw new Error(`Не удалось загрузить категории: HTTP ${response.status}`)
+export async function getCategories(signal: AbortSignal): Promise<Category[]>{
+  const{data, error} = await supabase
+  .from('categories')
+  .select('id, name')
+  .order('name')
+  .abortSignal(signal)
+
+  if(signal.aborted){
+    throw new DOMException('Запрос отменён', 'AbortError')
   }
-  const value: unknown = await response.json()
-  return parseCategories(value)
+
+  if(error){
+    throw new Error(`Не удалось загрузить категории: ${error.message}`)
+  }
+
+  return parseCategories(data)
 }

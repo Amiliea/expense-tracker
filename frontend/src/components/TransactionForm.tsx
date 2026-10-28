@@ -151,6 +151,12 @@ export function TransactionForm(props: TransactionFormProps) {
           </div>
         )}
       </div>
+      <button
+      type="button"
+      onClick={retry}
+      disabled={load.status === 'loading'}>
+        Обновить справочник
+      </button>
 
       {error && <p role="alert" style={{ color: 'red', margin: 0 }}>{error}</p>}
 
