@@ -3,7 +3,7 @@ import { TransactionForm } from '../components/TransactionForm'
 import type { TransactionDraft, TransactionInput } from '../types/transaction'
 
 type NewTransactionPageProps = {
-  onCreate: (input: TransactionInput)=> string
+  onCreate: (input: TransactionInput)=> Promise<string>
 }
 
 export function NewTransactionPage({ onCreate }: NewTransactionPageProps) {

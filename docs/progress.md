@@ -217,3 +217,44 @@ App (перенос — в ЛР 6 вместе с авторизацией).
 перед коммитом.
 
 - Коммит: `Lab 5: add Supabase schema and reference data`
+
+
+## ЛР 6
+
+Подключены Supabase Auth и постоянное хранение операций. Каждый пользователь
+видит только свои записи. Данные сохраняются после перезагрузки страницы.
+
+Схема и RLS:
+- На таблицу `public.transactions` выданы права `select, insert, update, delete`
+  роли `authenticated` (анонимный доступ по-прежнему запрещён).
+- Созданы четыре RLS-политики для `transactions`:
+  - select — `using ((select auth.uid()) = owner_id)`;
+  - insert — `with check ((select auth.uid()) = owner_id)`;
+  - update — `using` и `with check` по owner_id;
+  - delete — `using ((select auth.uid()) = owner_id)`.
+- Таблица `categories` остаётся публичной на чтение.
+
+Клиент:
+- Добавлены `src/pages/AuthPage.tsx` (регистрация и вход) и `src/services/transactions.ts`
+  (getTransactions, createTransaction, updateTransaction, deleteTransaction).
+- В `App.tsx`:
+  - `claims` через `supabase.auth.getClaims()` и `supabase.auth.onAuthStateChange`;
+  - пока нет пользователя — показывается `AuthPage`;
+  - при входе операции загружаются из Supabase;
+  - CRUD-обработчики стали асинхронными и работают через сервис.
+- В `AppLayout` добавлены email пользователя и кнопка «Выйти».
+- Удалён демонстрационный массив `src/data/transactions.ts` (или оставлен
+  только как историческая справка, но не используется в `App`).
+- Текст про «данные в памяти» заменён на пояснение, что данные сохраняются в Supabase.
+
+Проверки:
+- регистрация нового пользователя и вход;
+- создание, редактирование, удаление операции с сохранением в БД;
+- обновление страницы (F5): данные не пропадают;
+- второй пользователь видит только свои операции;
+- выход из аккаунта возвращает к `AuthPage`;
+- без входа запрос к `transactions` возвращает пустой результат / ошибку;
+- `npm run build` и `npm run preview` проходят;
+- `.env.local` не попал в Git, `.env.example` — в Git.
+
+- Коммит: `Lab 6: add Supabase Auth and persistent transactions`
