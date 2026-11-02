@@ -20,7 +20,13 @@ export function TransactionCard({ transaction }: TransactionCardProps) {
       </h2>
       <p>{transaction.description}</p>
       <p>
-        {typeLabels[transaction.type]}: {transaction.amount} ₽
+        <span className={`transaction-type ${transaction.type}`}>
+          {typeLabels[transaction.type]}
+        </span>
+        {' · '}
+        <span className={`transaction-amount ${transaction.type}`}>
+          {transaction.amount} ₽
+        </span>
       </p>
       <p>Дата: {transaction.date}</p>
       <p>Категория: {transaction.category}</p>

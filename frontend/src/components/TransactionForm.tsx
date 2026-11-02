@@ -162,7 +162,7 @@ export function TransactionForm(props: TransactionFormProps) {
 
       <div style={{ display: 'flex', gap: '10px' }}>
         <button type="submit" disabled={!canSave}>Сохранить</button>
-        <button type="button" onClick={props.onCancel}>Отмена</button>
+        <button type="button" className="secondary" onClick={props.onCancel}>Отмена</button>
       </div>
     </form>
   )

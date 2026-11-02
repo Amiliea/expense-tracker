@@ -16,11 +16,15 @@ export function TransactionsPage({ transactions }: TransactionsPageProps) {
 
   return (
     <section>
-      <h1>Мои операции</h1>
-      
-      {}
-      <div style={{ marginBottom: '20px' }}>
-        <label htmlFor="filter-type">Показать: </label>
+      <div className="page-header">
+        <h1>Мои операции</h1>
+        <Link to="/transactions/new" className="button-link">
+          + Новая операция
+        </Link>
+      </div>
+
+      <div className="filter-bar">
+        <label htmlFor="filter-type">Показать:</label>
         <select
           id="filter-type"
           value={filterType}
@@ -35,19 +39,19 @@ export function TransactionsPage({ transactions }: TransactionsPageProps) {
           <option value="income">Доходы</option>
           <option value="expense">Расходы</option>
         </select>
-        <button type="button" onClick={() => setFilterType('all')}>Сбросить</button>
+        <button type="button" className="secondary" onClick={() => setFilterType('all')}>
+          Сбросить
+        </button>
       </div>
 
-      <Link to="/transactions/new">Добавить операцию</Link>
-
       {transactions.length === 0 ? (
-        <p>Операций пока нет.</p>
+        <p>Операций пока нет. Создайте первую!</p>
       ) : visibleTransactions.length === 0 ? (
         <p>По вашему фильтру ничего не найдено.</p>
       ) : (
-        <div className="transaction-list" style={{ marginTop: '20px' }}>
-          {visibleTransactions.map((transaction) => (
-            <TransactionCard key={transaction.id} transaction={transaction} />
+        <div className="transaction-list">
+          {visibleTransactions.map((t) => (
+            <TransactionCard key={t.id} transaction={t} />
           ))}
         </div>
       )}

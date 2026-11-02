@@ -27,40 +27,43 @@ export function AuthPage() {
   }
 
   return (
-    <section style={{ maxWidth: 400, margin: '0 auto' }}>
-      <h1>{isSignUp ? 'Регистрация' : 'Вход'}</h1>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div>
-          <label htmlFor="auth-email">Email</label>
-          <input
-            id="auth-email"
-            type="email"
-            value={email}
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="auth-password">Пароль</label>
-          <input
-            id="auth-password"
-            type="password"
-            value={password}
-            required
-            minLength={6}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+  <section className="auth-page">
+    <h1>{isSignUp ? 'Регистрация' : 'Вход'}</h1>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="auth-email">Email</label>
+        <input
+          id="auth-email"
+          type="email"
+          value={email}
+          required
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="auth-password">Пароль</label>
+        <input
+          id="auth-password"
+          type="password"
+          value={password}
+          required
+          minLength={6}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
 
-        {error && <p role="alert" style={{ color: 'red' }}>{error}</p>}
+      {error && <p role="alert">{error}</p>}
 
-        <button type="submit" disabled={loading}>
-          {loading ? 'Подождите...' : isSignUp ? 'Зарегистрироваться' : 'Войти'}
-        </button>
-        <button type="button" onClick={() => setIsSignUp(!isSignUp)}>
-          {isSignUp ? 'Уже есть аккаунт? Войти' : 'Нет аккаунта? Зарегистрироваться'}
-        </button>
-      </form>
-    </section>
-  )
-}
+      <button type="submit" disabled={loading}>
+        {loading ? 'Подождите...' : isSignUp ? 'Зарегистрироваться' : 'Войти'}
+      </button>
+      <button
+        type="button"
+        className="auth-switch"
+        onClick={() => setIsSignUp(!isSignUp)}
+      >
+        {isSignUp ? 'Уже есть аккаунт? Войти' : 'Нет аккаунта? Зарегистрироваться'}
+      </button>
+    </form>
+  </section>
+)}
