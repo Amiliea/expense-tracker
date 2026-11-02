@@ -26,8 +26,6 @@ export function parseCategories(value: unknown): Category[] {
   return categories
 }
 
-const categoriesUrl = `${import.meta.env.BASE_URL}demo/categories.json`
-
 export async function getCategories(signal: AbortSignal): Promise<Category[]>{
   const{data, error} = await supabase
   .from('categories')
